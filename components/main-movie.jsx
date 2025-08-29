@@ -1,3 +1,7 @@
+"use client";
+
+import Carousel from "react-bootstrap/Carousel";
+
 const MainContent = () => {
   const movieContainer = [
     {
@@ -10,7 +14,6 @@ const MainContent = () => {
       description:
         "Batman faces his greatest psychological and physical test as the Joker unleashes chaos on Gotham City.",
     },
-
     {
       name: "Interstellar",
       category: "Sci-Fi",
@@ -21,7 +24,6 @@ const MainContent = () => {
       description:
         "A team of explorers travels through a wormhole in space to save humanity as Earth faces a global food crisis.",
     },
-
     {
       name: "Parasite",
       category: "Thriller",
@@ -32,7 +34,6 @@ const MainContent = () => {
       description:
         "A poor family schemes to infiltrate the lives of a wealthy household, but their plan spirals out of control.",
     },
-
     {
       name: "The Shawshank Redemption",
       category: "Drama",
@@ -43,7 +44,6 @@ const MainContent = () => {
       description:
         "A banker wrongfully imprisoned for murder finds hope and friendship behind bars as he plots his escape.",
     },
-
     {
       name: "The Godfather",
       category: "Crime",
@@ -54,7 +54,6 @@ const MainContent = () => {
       description:
         "The aging patriarch of a powerful crime family hands control to his reluctant son, igniting a saga of loyalty and betrayal.",
     },
-
     {
       name: "Spirited Away",
       category: "Animation",
@@ -65,7 +64,6 @@ const MainContent = () => {
       description:
         "A young girl enters a magical world of spirits and must find a way to free herself and her parents from a mysterious curse.",
     },
-
     {
       name: "Mad Max: Fury Road",
       category: "Action",
@@ -76,7 +74,6 @@ const MainContent = () => {
       description:
         "In a desert wasteland, Max teams up with Furiosa to flee a tyrant and lead a rebellion for freedom.",
     },
-
     {
       name: "La La Land",
       category: "Musical",
@@ -89,20 +86,36 @@ const MainContent = () => {
     },
   ];
 
+  // split movies into chunks of 4
+  const movieChunks = [];
+  for (let i = 0; i < movieContainer.length; i += 4) {
+    movieChunks.push(movieContainer.slice(i, i + 4));
+  }
+
   return (
-    <div className="flex gap-2.5">
-      {movieContainer.map((movie, index) => (
-        <div key={index} className="">
-          <img src={movie.coverImage} alt={movie.name} className="" />
-
-          <h2>{movie.name}</h2>
-
-          <p>
-            {movie.category} | {movie.movieTime} | IMDb: {movie.imdbScore}
-          </p>
-        </div>
+    <Carousel interval={5000} indicators={true} pause={false} ride={Carousel} className="h-[500px]">
+      {movieChunks.map((chunk, index) => (
+        <Carousel.Item key={index} className="h-full flex justify-center items-center">
+          <div className="flex justify-center gap-8 p-8 h-full">
+            {chunk.map((movie, idx) => (
+              <div key={idx} className="w-[150px] shrink-0 text-center flex flex-col h-full transition duration-300 hover:scale-120 hover:bg-gray-600 hover:index-1">
+                <img
+                  src={movie.coverImage}
+                  alt={movie.name}
+                  className="rounded-[16px] w-full object-cover flex-1"
+                />
+                <h2 className="text-white text-sm font-semibold mt-2">
+                  {movie.name}
+                </h2>
+                <p className="text-gray-400 text-xs">
+                  {movie.category} | {movie.movieTime} | IMDb: {movie.imdbScore}
+                </p>
+              </div>
+            ))}
+          </div>
+        </Carousel.Item>
       ))}
-    </div>
+    </Carousel>
   );
 };
 

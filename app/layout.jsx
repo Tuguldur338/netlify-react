@@ -4,6 +4,7 @@ import Header from "@/components/header";
 import "./global.css";
 import MainContent from "@/components/main-movie";
 import Trailer from "@/components/trailer";
+import Footer from "@/components/footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,6 +28,7 @@ export default function RootLayout({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Header />
+        <Footer />
         {children}
       </body>
     </html>
