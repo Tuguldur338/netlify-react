@@ -93,29 +93,40 @@ const MainContent = () => {
   }
 
   return (
-    <Carousel interval={5000} indicators={true} pause={false} ride={Carousel} className="h-[500px]">
-      {movieChunks.map((chunk, index) => (
-        <Carousel.Item key={index} className="h-full flex justify-center items-center">
-          <div className="flex justify-center gap-8 p-8 h-full">
-            {chunk.map((movie, idx) => (
-              <div key={idx} className="w-[150px] shrink-0 text-center flex flex-col h-full transition duration-300 hover:scale-120 hover:bg-gray-600 hover:index-1">
-                <img
-                  src={movie.coverImage}
-                  alt={movie.name}
-                  className="rounded-[16px] w-full object-cover flex-1"
-                />
-                <h2 className="text-white text-sm font-semibold mt-2">
-                  {movie.name}
-                </h2>
-                <p className="text-gray-400 text-xs">
-                  {movie.category} | {movie.movieTime} | IMDb: {movie.imdbScore}
-                </p>
-              </div>
-            ))}
-          </div>
-        </Carousel.Item>
-      ))}
-    </Carousel>
+    <div className="relative overflow-visible">
+      <Carousel interval={5000} indicators={true} pause={false}>
+        {movieChunks.map((chunk, index) => (
+          <Carousel.Item key={index}>
+            <div className="flex justify-center gap-8 p-8 h-full overflow-visible">
+              {chunk.map((movie, idx) => (
+                <div
+                  key={idx}
+                  tabIndex={0}
+                  className="relative w-[150px] flex-shrink-0 text-center flex flex-col h-full transition-transform duration-300 transform hover:scale-110 cursor-pointer z-20"
+                  onClick={() =>
+                    (window.location.href =
+                      "https://www.netflix.com/mn/title/70079583")
+                  }
+                >
+                  <img
+                    src={movie.coverImage}
+                    alt={movie.name}
+                    className="rounded-[16px] w-full object-cover flex-1"
+                  />
+                  <h2 className="text-white text-sm font-semibold mt-2 !text-[20px]">
+                    {movie.name}
+                  </h2>
+                  <p className="text-gray-400 !text-[12px]">
+                    {movie.category} | {movie.movieTime} | IMDb:{" "}
+                    {movie.imdbScore}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </Carousel.Item>
+        ))}
+      </Carousel>
+    </div>
   );
 };
 
